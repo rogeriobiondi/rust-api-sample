@@ -1,0 +1,16 @@
+[package]
+name = "rust-api-sample"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+axum = "0.7"
+tokio = { version = "1.0", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+tower-http = { version = "0.5", features = ["cors"] }
+utoipa = { version = "4.2.3", features = ["axum_extras"] }
+utoipa-swagger-ui = { version = "5.0.0", features = ["axum"] }
+sqlx = { version = "0.7", features = ["runtime-tokio", "postgres", "macros"] }
+dotenvy = "0.15"
+
+
