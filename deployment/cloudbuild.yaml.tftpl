@@ -1,0 +1,32 @@
+steps:
+  # Build da imagem Docker
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', '${_REGISTRY_REGION}-docker.pkg.dev/${_PROJECT_ID}/rust-api-registry/rust-api:latest', '.']
+  
+  # Push da imagem para Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '${_REGISTRY_REGION}-docker.pkg.dev/${_PROJECT_ID}/rust-api-registry/rust-api:latest']
+  
+  # Deploy para Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+    - 'run'
+    - 'deploy'
+    - '${_SERVICE_NAME}'
+    - '--image=${_REGISTRY_REGION}-docker.pkg.dev/${_PROJECT_ID}/rust-api-registry/rust-api:latest'
+    - '--region=${_REGISTRY_REGION}'
+    - '--allow-unauthenticated'
+    - '--port=3000'
+    - '--memory=512Mi'
+    - '--cpu=1'
+    - '--max-instances=10'
+    - '--min-instances=0'
+
+substitutions:
+  _SERVICE_NAME: rust-api-sample
+  _REGISTRY_REGION: ${region}
+  _PROJECT_ID: ${project_id}
+
+images:
+  - '${_REGISTRY_REGION}-docker.pkg.dev/${_PROJECT_ID}/rust-api-registry/rust-api:latest'

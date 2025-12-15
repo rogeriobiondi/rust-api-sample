@@ -1,0 +1,42 @@
+# Rust
+target/
+Cargo.lock
+**/*.rs.bk
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentation
+README.md
+*.md
+
+# SQL files
+sql/
+
+# Terraform
+*.tf
+*.tfvars
+*.tfstate
+.terraform/
+
+# Logs
+*.log
+
+# Test files
+tests/
